@@ -95,6 +95,7 @@
 		factory: partition@100000 {
 			label = "factory";
 			reg = <0x100000 0x40000>;
+			read-only;
 		};
 
 		kernel: partition@140000 {
@@ -118,8 +119,11 @@
 		compatible = "mediatek,mt76";
 		reg = <0x0000 0 0 0 0>;
 		mediatek,mtd-eeprom = <&factory 0x0>;
+		/* 5 GHz (phy1) does not take the address from calibration data,
+		   but setting it manually here works */
 		nvmem-cells = <&macaddr_factory_4 0>;
 		nvmem-cell-names = "mac-address";
+		// ieee80211-freq-limit = <5000000 6000000>; // remove freq limit for DBDC
 	};
 };
 
